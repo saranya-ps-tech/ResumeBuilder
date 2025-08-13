@@ -10,3 +10,5 @@
 5. Create components :
    - Create page folder
    - Create component folder   
+6. Setup url for components
+   - install react-router-dom : npm i react-router-dom
