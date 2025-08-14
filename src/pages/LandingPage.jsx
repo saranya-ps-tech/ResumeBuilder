@@ -14,7 +14,7 @@ function LandingPage() {
           <div className="col-12 col-md-4  shadow border py-5 rounded mt-5 text-center" style={{ backgroundColor: 'rgb(255, 255, 255,0.5)' }}>
             <h3>Designed to get hired.</h3>
             <h4>Your skills, Your story, Your next job - all in one.</h4>
-            <Link to={'/resume'}> <button className='btn btn-primary'>Make Your Resume</button></Link>
+            <Link to={'/resume'}> <button className='btn text-light'style={{background:'purple'}} >Make Your Resume</button></Link>
 
           </div>
           <div className="col-12 col-md-4"></div>
