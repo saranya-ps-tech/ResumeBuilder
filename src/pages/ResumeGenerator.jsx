@@ -22,7 +22,7 @@ function ResumeGenerator() {
         </div>
     </div>
     <div className='text-center my-5'>
-<button className='btn text-light' style={{background:'purple'}}>LET'S START</button>
+<button  className='btn text-light' style={{background:'purple'}}>LET'S START</button>
     </div>
     
 </div>

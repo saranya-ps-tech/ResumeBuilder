@@ -10,9 +10,42 @@ import TextField from '@mui/material/TextField';
 const steps = ['Basic Informations', 'Contact Details', 'Education Details', 'Work Experience', 'Skills & Certifications', 'Review & Submit'];
 
 function Steps() {
+  const skillSuggestionArray = ['NODE JS', 'EXPRESS', 'MONGODB', 'REACT', 'ANGULAR', 'NEXT JS', 'BOOTSTRAP', 'TAILWIND', 'CSS', 'GIT']
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+
+  //state for storing user input data
+  const [userInput, setUserInput] = React.useState({
+    personelData: {
+      name: '',
+      jobTitle: '',
+      location: '',
+      email: '',
+      phone: '',
+      github: '',
+      linkedin: '',
+      portfolio: ''
+    },
+    education: {
+      course: '',
+      college: '',
+      university: '',
+      year: '',
+
+    },
+    experience: {
+      jobRole: '',
+      company: '',
+      jobLocation: '',
+      duration: '',
+
+    },
+    skills: [],
+    summary: ''
+  })
+  console.log(userInput);
+
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -64,34 +97,35 @@ function Steps() {
         <div>
           <h3>Personal Details</h3>
           <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-name" label="Full Name" variant="standard" />
-            <TextField id="standard-basic-job" label="Job Title" variant="standard" />
-            <TextField id="standard-basic-location" label="Location" variant="standard" />
+            <TextField id="standard-basic-name" label="Full Name" variant="standard" onChange={e => setUserInput({ ...userInput, personelData: { ...userInput.personelData, name: e.target.value } })} />
+            <TextField id="standard-basic-job" label="Job Title" variant="standard" onChange={e => setUserInput({ ...userInput, personelData: { ...userInput.personelData, jobTitle: e.target.value } })} />
+            <TextField id="standard-basic-location" label="Location" variant="standard" onChange={e => setUserInput({ ...userInput, personelData: { ...userInput.personelData, location: e.target.value } })} />
 
           </div>
         </div>
       )
-       case 1: return (
+      case 1: return (
         <div>
           <h3>Contact Details</h3>
           <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-email" label="Email" variant="standard" />
-            <TextField id="standard-basic-phone" label="Phone Number" variant="standard" />
-            <TextField id="standard-basic-github" label="Github profile link" variant="standard" />             <TextField id="standard-basic-linkedin" label="Linkedin profile link" variant="standard" />
-            <TextField id="standard-basc-portfolio" label="Portfolio link" variant="standard" />
+            <TextField id="standard-basic-email" label="Email" variant="standard" onChange={e => setUserInput({ ...userInput, personelData: { ...userInput.personelData, email: e.target.value } })} />
+            <TextField id="standard-basic-phone" label="Phone Number" variant="standard" onChange={e => setUserInput({ ...userInput, personelData: { ...userInput.personelData, phone: e.target.value } })} />
+            <TextField id="standard-basic-github" label="Github profile link" variant="standard" onChange={e => setUserInput({ ...userInput, personelData: { ...userInput.personelData, github: e.target.value } })} />     
+             <TextField id="standard-basic-linkedin" label="Linkedin profile link" variant="standard" onChange={e=>setUserInput({...userInput,personelData:{...userInput.personelData,linkedin:e.target.value}})} />
+            <TextField id="standard-basc-portfolio" label="Portfolio link" variant="standard" onChange={e=>setUserInput({...userInput,personelData:{...userInput.personelData,portfolio:e.target.value}})} />
 
 
           </div>
         </div>
       )
-       case 2: return (
+      case 2: return (
         <div>
           <h3>Education Details</h3>
           <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-course" label="Course Name" variant="standard" />
-            <TextField id="standard-basic-college" label="College Name" variant="standard" />
-            <TextField id="standard-basic-university" label="University" variant="standard" />
-            <TextField id="standard-basic-year" label="Year Of Passout" variant="standard" />
+            <TextField id="standard-basic-course" label="Course Name" variant="standard"  onChange={e=>setUserInput({...userInput,education:{...userInput.education,course:e.target.value}})}/>
+            <TextField id="standard-basic-college" label="College Name" variant="standard"  onChange={e=>setUserInput({...userInput,education:{...userInput.education,college:e.target.value}})}/>
+            <TextField id="standard-basic-university" label="University" variant="standard"  onChange={e=>setUserInput({...userInput,education:{...userInput.education,university:e.target.value}})}/>
+            <TextField id="standard-basic-year" label="Year Of Passout" variant="standard"  onChange={e=>setUserInput({...userInput,education:{...userInput.education,year:e.target.value}})}/>
 
 
           </div>
@@ -101,37 +135,49 @@ function Steps() {
         <div>
           <h3>Proffessional Details</h3>
           <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-role" label="Job or Internship" variant="standard" />
-            <TextField id="standard-basic-company" label="Company Name" variant="standard" />
-            <TextField id="standard-basic-clocation" label="Company Location" variant="standard" />
-            <TextField id="standard-basic-duration" label="Duration" variant="standard" />
+            <TextField id="standard-basic-role" label="Job or Internship" variant="standard" onChange={e=>setUserInput({...userInput,experience:{...userInput.experience,jobRole:e.target.value}})} />
+            <TextField id="standard-basic-company" label="Company Name" variant="standard"  onChange={e=>setUserInput({...userInput,experience:{...userInput.experience,company:e.target.value}})}/>
+            <TextField id="standard-basic-clocation" label="Company Location" variant="standard"  onChange={e=>setUserInput({...userInput,experience:{...userInput.experience,jobLocation:e.target.value}})}/>
+            <TextField id="standard-basic-duration" label="Duration" variant="standard"  onChange={e=>setUserInput({...userInput,experience:{...userInput.experience,duration:e.target.value}})}/>
 
 
           </div>
         </div>
       )
-       case 4: return (
+      case 4: return (
         <div>
           <h3>Skills Details</h3>
-          <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-name" label="Full Name" variant="standard" />
-            <TextField id="standard-basic-job" label="Job Title" variant="standard" />
-            <TextField id="standard-basic-location" label="Location" variant="standard" />
-
+          <div className='d-flex  align-items-center justify-content-between  p-3'>
+            <TextField sx={{ width: '400px' }} id="standard-basic-skill" label="Add skill" variant="standard" />
+            <Button variant="text">ADD</Button>
+          </div>
+          <h5>Suggestion:</h5>
+          <div className="d-flex flex-wrap justify-content-between my-3">
+            {
+              skillSuggestionArray.map(userSkill => (
+                <Button className='m-1' key={userSkill} variant="outlined">{userSkill}</Button>
+              ))
+            }
+          </div>
+          <h5>Added Skills:</h5>
+          <div className="d-flex flex-wrap justify-content-between my-3">
+            {/* span must duplicate according to the user added skill */}
+            <span className='btn btn-primary d-flex align-items-center justify-content-center'>REACT <button className='text-light btn'>X</button></span>
           </div>
         </div>
       )
-       case 5: return (
+      case 5: return (
         <div>
           <h3>Proffessional Summary</h3>
           <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-summary" label="Write a short summary of yourself" multilineRows={4} defaultValue={'afhndksjdkjhdjfmkl'} variant="standard" />
-         
+            <TextField id="standard-basic-summary" label="Write a short summary of yourself" multilineRows={4} defaultValue={'afhndksjdkjhdjfmkvgggggggggggggggggggggggggggggggggggggudnkjfnhsdbnfndfhnnsmdnfjdsbfjsdfhdfsjdfksfhsjdsfhhfkjshgkkfgkdfgnkfgksfnvkjffl'} variant="standard"  onChange={e=>setUserInput({...userInput,summary:e.target.value})} />
+
 
           </div>
         </div>
       )
-      default:return null
+
+      default: return null
 
     }
 
