@@ -1,6 +1,7 @@
 import React from 'react'
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { IoIosDownload } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 function ResumeGenerator() {
   return (
@@ -22,8 +23,10 @@ function ResumeGenerator() {
         </div>
     </div>
     <div className='text-center my-5'>
-<button  className='btn text-light' style={{background:'purple'}}>LET'S START</button>
-    </div>
+<Link to={'/form'}>
+  <button  className='btn text-light' style={{background:'purple'}}>LET'S START</button>
+  
+</Link>    </div>
     
 </div>
 
