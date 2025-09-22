@@ -6,10 +6,14 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import { addResumeAPI } from '../services/allAPI';
+import swal from 'sweetalert';
+
+
 
 const steps = ['Basic Informations', 'Contact Details', 'Education Details', 'Work Experience', 'Skills & Certifications', 'Review & Submit'];
 
-function Steps({userInput,setUserInput}) {
+function Steps({ userInput, setUserInput, setFinish,setResumeId }) {
   const skillSuggestionArray = ['NODE JS', 'EXPRESS', 'MONGODB', 'REACT', 'ANGULAR', 'NEXT JS', 'BOOTSTRAP', 'TAILWIND', 'CSS', 'GIT']
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -79,7 +83,7 @@ function Steps({userInput,setUserInput}) {
   }
   // remove skill
   const removeSkill = (skill) => {
-    setUserInput({...userInput,skills: userInput.skills.filter((item) => item != skill)})
+    setUserInput({ ...userInput, skills: userInput.skills.filter((item) => item != skill) })
   }
 
 
@@ -177,7 +181,7 @@ function Steps({userInput,setUserInput}) {
         <div>
           <h3>Proffessional Summary</h3>
           <div className='d-flex  row p-3'>
-            <TextField id="standard-basic-summary" label="Write a short summary of yourself" multilineRows={4} defaultValue={'A MEAN Full Stack Developer is someone who can design, build, and deploy complete web applications using MongoDB, Express.js, Angular, and Node.js, handling everything from UI to database in one tech stack.'} variant="standard" onChange={e => setUserInput({ ...userInput, summary: e.target.value })} value={userInput.summary} />
+            <TextField id="standard-basic-summary" label="Write a short summary of yourself" multilineRows={4} defaultValue={'A MEAN Full Stack Developer is someone who can design, build, and deploy complete web applications using MongoDB, Express.js, Angular, and Node.js, handling everything from UI to database in one tech stack.'} variant="standard" onChange={e => setUserInput({ ...userInput, summary: e.target.value })} />
 
 
           </div>
@@ -189,6 +193,32 @@ function Steps({userInput,setUserInput}) {
     }
 
   }
+
+  //addresume
+  const handleAddResume = async () => {
+
+    const { name, jobTitle, location } = userInput.personelData
+    if (name && jobTitle && location) {
+      try {
+        const result = await addResumeAPI(userInput)
+        console.log(result);
+        setResumeId(result?.data?.id)
+       // console.log(result?.data?.id);
+        
+        swal("Success!", "Resume added successfully!", "success");
+        setFinish(true)
+      } catch (err) {
+        console.log(err);
+        swal("Error!", "Resume added Failed!", "error");
+        setFinish(false)
+      }
+    } else {
+      alert("fill the form ")
+    }
+
+
+  }
+
 
   return (
 
@@ -244,9 +274,11 @@ function Steps({userInput,setUserInput}) {
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+            {activeStep === steps.length - 1 ?
+              <Button onClick={handleAddResume}>Finish</Button> :
+              <Button onClick={handleNext}>Next</Button>
+            }
+
           </Box>
         </React.Fragment>
       )}
