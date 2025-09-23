@@ -1,3 +1,3 @@
-const BASEURL="http://localhost:3000"
+const BASEURL="https://resumebuilderserver-0agh.onrender.com"
 
 export default BASEURL
